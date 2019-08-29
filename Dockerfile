@@ -1,4 +1,4 @@
-FROM openjdk:8-jre
+FROM openjdk:8-jre-alpine
 
 ENV ACTIVEMQ_VERSION 5.15.2
 ENV ACTIVEMQ apache-activemq-$ACTIVEMQ_VERSION
@@ -7,8 +7,10 @@ ENV SHA512_VAL=351e16319552b944b5a9931f990c9f0a896514a0aab4047e6e765deff889a80e4
 
 ENV ACTIVEMQ_HOME /opt/activemq
 
-
-RUN curl "https://archive.apache.org/dist/activemq/$ACTIVEMQ_VERSION/$ACTIVEMQ-bin.tar.gz" -o $ACTIVEMQ-bin.tar.gz
+RUN set -x && \
+    mkdir -p /opt && \
+    apk --update add --virtual build-dependencies curl && \
+    curl https://archive.apache.org/dist/activemq/$ACTIVEMQ_VERSION/$ACTIVEMQ-bin.tar.gz -o $ACTIVEMQ-bin.tar.gz
 
 # Validate checksum
 RUN if [ "$SHA512_VAL" != "$(sha512sum $ACTIVEMQ-bin.tar.gz | awk '{print($1)}')" ];\
@@ -19,9 +21,11 @@ RUN if [ "$SHA512_VAL" != "$(sha512sum $ACTIVEMQ-bin.tar.gz | awk '{print($1)}')
 
 RUN tar xzf $ACTIVEMQ-bin.tar.gz -C  /opt && \
     ln -s /opt/$ACTIVEMQ $ACTIVEMQ_HOME && \
-    useradd -r -M -d $ACTIVEMQ_HOME activemq && \
+    addgroup -S activemq && adduser -S -H -G activemq -h $ACTIVEMQ_HOME activemq && \
     chown -R activemq:activemq /opt/$ACTIVEMQ && \
-    chown -h activemq:activemq $ACTIVEMQ_HOME 
+    chown -h activemq:activemq $ACTIVEMQ_HOME && \
+    apk del build-dependencies && \
+    rm -rf /var/cache/apk/*
 
 USER activemq
 
