@@ -85,7 +85,7 @@
          directory="${activemq.data}/leveldb" 
          replicas="3" 
          bind="tcp://0.0.0.0:62623" 
-         zkAddress="${ZOOKEEPER_HOST:127.0.0.1:${ZOOKEEPER_PORT:2183},${ZOOKEEPER_HOST:127.0.0.1:${ZOOKEEPER_PORT:2183},${ZOOKEEPER_HOST:127.0.0.1:${ZOOKEEPER_PORT:2183}" 
+         zkAddress="${ZOOKEEPER_HOST:127.0.0.1:${ZOOKEEPER_PORT:2181},${ZOOKEEPER_HOST:127.0.0.1:${ZOOKEEPER_PORT:2181},${ZOOKEEPER_HOST:127.0.0.1:${ZOOKEEPER_PORT:2181}" 
          hostname="${ZOOKEEPER_HOST:127.0.0.1}" 
          zkPath="/activemq/leveldb-stores"/> 
        </persistenceAdapter>
