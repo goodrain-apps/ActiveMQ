@@ -1,4 +1,4 @@
-!--
+         <!--
     Licensed to the Apache Software Foundation (ASF) under one or more
     contributor license agreements.  See the NOTICE file distributed with
     this work for additional information regarding copyright ownership.
@@ -78,17 +78,17 @@
 
             http://activemq.apache.org/persistence.html
         -->
-        <persistenceAdapter>
-            <replicatedLevelDB
-            directory="${activemq.data}/leveldb"
-            replicas="3"
-            bind="tcp://0.0.0.0:0"
-
-        zkAddress="${ZOOKEEPER_HOST:127.0.0.1:${ZOOKEEPER_PORT:2183},${ZOOKEEPER_HOST:127.0.0.1:${ZOOKEEPER_PORT:2183},${ZOOKEEPER_HOST:127.0.0.1:${ZOOKEEPER_PORT:2183}"   
-              zkPath="/usr/local//activemq/leveldb-stores"  
-              hostname="${ZOOKEEPER_HOST:127.0.0.1}"  
-              />  
-        </persistenceAdapter>
+       <persistenceAdapter> 
+       <!--<kahaDB directory="${activemq.data}/kahadb"/>-->
+  
+       <replicatedLevelDB 
+         directory="${activemq.data}/leveldb" 
+         replicas="3" 
+         bind="tcp://0.0.0.0:62623" 
+         zkAddress="${ZOOKEEPER_HOST:127.0.0.1:${ZOOKEEPER_PORT:2183},${ZOOKEEPER_HOST:127.0.0.1:${ZOOKEEPER_PORT:2183},${ZOOKEEPER_HOST:127.0.0.1:${ZOOKEEPER_PORT:2183}" 
+         hostname="${ZOOKEEPER_HOST:127.0.0.1}" 
+         zkPath="/activemq/leveldb-stores"/> 
+       </persistenceAdapter>
 
 
           <!--
