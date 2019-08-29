@@ -79,7 +79,15 @@
             http://activemq.apache.org/persistence.html
         -->
         <persistenceAdapter>
-            <kahaDB directory="${activemq.data}/kahadb"/>
+            <replicatedLevelDB
+            directory="${activemq.data}/leveldb"
+            replicas="3"
+            bind="tcp://0.0.0.0:0"
+
+        zkAddress="${ZOOKEEPER_HOST:127.0.0.1:${ZOOKEEPER_PORT:2183},${ZOOKEEPER_HOST:127.0.0.1:${ZOOKEEPER_PORT:2183},${ZOOKEEPER_HOST:127.0.0.1:${ZOOKEEPER_PORT:2183}"   
+              zkPath="/usr/local//activemq/leveldb-stores"  
+              hostname="${ZOOKEEPER_HOST:127.0.0.1}"  
+              />  
         </persistenceAdapter>
 
 
